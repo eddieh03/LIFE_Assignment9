@@ -1,0 +1,25 @@
+﻿version: '3' 
+services:
+  api:
+    build: ./
+    ports:
+      - "44646:80" 
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development 
+    depends_on:
+      - db 
+  db:
+    container_name: pets-mongo-server
+    image: mongo:latest
+    ports:
+      - "27017:27017" 
+    volumes:
+      - mongodata:/data/db 
+    environment:
+      MONGO_INITDB_DATABASE: petDatabase
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+      MONGO_PORT: 27017
+
+volumes:
+  mongodata:
